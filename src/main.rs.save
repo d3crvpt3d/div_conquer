@@ -1,0 +1,28 @@
+fn main() {
+    let mut array: [i32; 0xF00] = [0; 0xF00].map(|_| rand::random::<i32>());
+
+	quicksort();
+
+}
+
+fn quicksort(){
+
+	if {
+		;
+	}
+
+}
+
+fn partition(slice: &mut [i32]) -> Option<usize>{
+	
+	let i: usize = 0;
+	let j: usize = 1;
+
+	let p: i32 = slice.last()?;
+
+	while i<j {
+		
+	}
+
+}
+ 

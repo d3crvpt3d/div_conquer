@@ -1,3 +1,5 @@
+use rayon::prelude::*;
+
 fn main() {
 
 	let args: Vec<String> = std::env::args().collect();
@@ -18,8 +20,6 @@ fn main() {
 
 fn quicksort(a: &mut [u32]){
 
-	let lst: usize = a.len();
-
 	if a.len() <= 1{
 		return;
 	}
@@ -27,10 +27,20 @@ fn quicksort(a: &mut [u32]){
 	//todo fix
 	let m = partition(a);
 
-	//[a..b] => slice [a bis b-1]
-	quicksort(&mut a[0..m]);
-	quicksort(&mut a[m+1..lst]);
+	let (left_slc, right_slc) = a.split_at_mut(m);
 
+	let slcs = vec![left_slc, right_slc];
+
+	slcs.into_par_iter().for_each(
+		|side| {
+			quicksort(side);
+		}
+	);
+	
+	//quicksort(&mut b[0..m]);
+	//quicksort(&mut a[m+1..lst]);
+
+	//	handle.join().unwrap();
 }
 
 fn partition(slice: &mut [u32]) -> usize{

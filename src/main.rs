@@ -2,10 +2,12 @@ use rand;
 
 fn main() {
 
-    let mut array: [i32; 0xF00] = [0; 0xF00].map(|_| rand::random::<i32>());
+    let mut array = [0; 0xFFFF].map(|_| rand::random::<i32>());
 	let end: usize = array.len();
 
 	quicksort(&mut array[0..end]);
+
+	//	dbg!(&array);
 
 	for (idx, int) in array.into_iter().enumerate(){
 

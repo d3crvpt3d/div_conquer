@@ -1,28 +1,22 @@
-use rand;
-
 fn main() {
 
-    let mut array = [0; 0xFFFF].map(|_| rand::random::<i32>());
-	let end: usize = array.len();
+	let args: Vec<String> = std::env::args().collect();
 
+	if args.len() != 2{
+		return;
+	}
+
+	let size: &usize = &args[1].parse::<usize>().unwrap();
+
+    let mut array: Vec<u32> = (0..*size).map(|_| rand::random::<u32>()).collect();
+	let end: usize = array.len();
+	
 	quicksort(&mut array[0..end]);
 
 	//	dbg!(&array);
-
-	for (idx, int) in array.into_iter().enumerate(){
-
-		if idx+1  == end{
-			println!("Array sorted!");
-			return;
-		}
-
-		if array[idx+1] < int{
-			println!("{} smaller then {}", array[idx+1], int);
-		}
-	}
 }
 
-fn quicksort(a: &mut [i32]){
+fn quicksort(a: &mut [u32]){
 
 	let lst: usize = a.len();
 
@@ -39,13 +33,13 @@ fn quicksort(a: &mut [i32]){
 
 }
 
-fn partition(slice: &mut [i32]) -> usize{
+fn partition(slice: &mut [u32]) -> usize{
 	
 	let mut i: usize = 0;
 	let mut j: usize = 0;
 	let last: usize = slice.len()-1;
 
-	let p: i32 = slice[last];
+	let p: u32 = slice[last];
 
 	while j < slice.len()-1{
 	
@@ -58,6 +52,6 @@ fn partition(slice: &mut [i32]) -> usize{
 	}
 	slice.swap(i, last);
 
-	return i;
+	i
 }
  
